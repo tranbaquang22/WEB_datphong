@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Đặt Phòng{% endblock %}
+{% block content %}
+<h1 class="mb-4">Phiếu Đặt Phòng</h1>
+{% if success %}
+<div class="alert alert-success">
+    <h4>Đặt phòng thành công!</h4>
+    <p><strong>Mã đặt phòng:</strong> {{ booking_code }}</p>
+    <p><strong>Tổng tiền:</strong> {{ total_price }} VND</p>
+    <p><strong>Phòng đã đặt:</strong> {{ rooms_booked }}</p>
+</div>
+{% endif %}
+
+<form method="POST">
+    <div class="form-group">
+        <label for="customer_name">Họ và tên</label>
+        <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+    </div>
+    <div class="form-group">
+        <label for="rooms_booked">Phòng cần đặt (phân cách bằng dấu phẩy)</label>
+        <input type="text" class="form-control" id="rooms_booked" name="rooms_booked" required>
+    </div>
+    <div class="form-group">
+        <label for="check_in_date">Ngày nhận phòng</label>
+        <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+    </div>
+    <div class="form-group">
+        <label for="check_out_date">Ngày trả phòng</label>
+        <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
+    </div>
+    <div class="form-group">
+        <label for="customer_cmnd">CMND</label>
+        <input type="text" class="form-control" id="customer_cmnd" name="customer_cmnd" required>
+    </div>
+    <div class="form-group">
+        <label for="customer_address">Địa chỉ</label>
+        <input type="text" class="form-control" id="customer_address" name="customer_address" required>
+    </div>
+    <div class="form-group">
+        <label for="customer_type">Loại khách</label>
+        <select class="form-control" id="customer_type" name="customer_type" required>
+            <option value="Cá nhân">Cá nhân</option>
+            <option value="Gia đình">Gia đình</option>
+            <option value="Doanh nghiệp">Doanh nghiệp</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="guests">Danh sách khách (Tên, CMND, Địa chỉ)</label>
+        <textarea class="form-control" id="guests" name="guests" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="num_days">Số ngày lưu trú</label>
+        <input type="number" class="form-control" id="num_days" name="num_days" required>
+    </div>
+    <button type="submit" class="btn btn-success">Xác nhận đặt phòng</button>
+</form>
+{% endblock %}

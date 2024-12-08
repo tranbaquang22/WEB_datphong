@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Tìm kiếm phòng{% endblock %}
+{% block content %}
+<h1 class="mb-4">Tìm kiếm phòng</h1>
+<form method="POST" class="mb-4">
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="name">Tên phòng</label>
+            <input type="text" class="form-control" name="name" id="name">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="price_min">Giá tối thiểu</label>
+            <input type="number" class="form-control" name="price_min" id="price_min">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="price_max">Giá tối đa</label>
+            <input type="number" class="form-control" name="price_max" id="price_max">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="capacity">Số người</label>
+            <input type="number" class="form-control" name="capacity" id="capacity">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="type">Loại phòng</label>
+            <select class="form-control" name="type" id="type">
+                <option value="">Tất cả</option>
+                <option value="Economy">Thường</option>
+                <option value="Business">Thương gia</option>
+                <option value="VIP">VIP</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+</form>
+
+<h2>Kết quả</h2>
+{% if results %}
+<div class="row">
+    {% for room in results %}
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="{{ room[7] }}" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+                <h5 class="card-title">{{ room[1] }}</h5>
+                <p class="card-text">Loại phòng: {{ room[3] }}</p>
+                <p class="card-text">Giá: {{ room[4] }} VND</p>
+                <p class="card-text">Số người: {{ room[5] }} người</p>
+                <p class="card-text">Tiện nghi: {{ room[6] }}</p>
+                <a href="{{ url_for('booking', room_id=room[0]) }}" class="btn btn-primary">Đặt ngay</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>Không có phòng phù hợp với yêu cầu.</p>
+<h3>Gợi ý</h3>
+<div class="row">
+    {% for room in recommendations %}
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="{{ room[7] }}" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+                <h5 class="card-title">{{ room[1] }}</h5>
+                <p class="card-text">Loại phòng: {{ room[3] }}</p>
+                <p class="card-text">Giá: {{ room[4] }} VND</p>
+                <p class="card-text">Số người: {{ room[5] }} người</p>
+                <p class="card-text">Tiện nghi: {{ room[6] }}</p>
+                <a href="{{ url_for('booking', room_id=room[0]) }}" class="btn btn-primary">Đặt ngay</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Danh sách phòng</h1>
+<div class="row">
+    {% for room in rooms %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <!-- Đảm bảo đường dẫn ảnh được xử lý chính xác -->
+            <img src="{{ url_for('static', filename='images/' + room[7].split('/')[-1]) }}" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+                <!-- Hiển thị tiêu đề phòng -->
+                <h5 class="card-title"> {{ room[1] }}</h5>
+                <!-- Hiển thị giá phòng -->
+                <p class="card-text">Giá: ${{ room[4] }}</p>
+                <!-- Hiển thị sức chứa -->
+                <p class="card-text">Có thể ở: {{ room[5] }} người</p>
+                <!-- Hiển thị danh sách tiện nghi -->
+                <p class="card-text">Tiện nghi: {{ room[6] }}</p>
+                <!-- Nút đặt phòng -->
+                <a href="{{ url_for('booking', room_id=room[0]) }}" class="btn btn-primary">Đặt ngay</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
